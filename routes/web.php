@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController as Login;
 use App\Http\Controllers\Auth\ForgotPasswordController as ForgotPassword;
+use App\Http\Controllers\Auth\ResetPasswordController as ResetPassword;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,9 +30,8 @@ Route::middleware('guest')->group(function (){
     Route::post('/login', [Login::class, 'authenticate'])->name('login');
     Route::get('/forgot-password', [ForgotPassword::class, 'show'])->name('forgot-password.view');
     Route::post('/forgot-password', [ForgotPassword::class, 'sendResetLinkEmail'])->name('forgot-password');
-    Route::get('/reset-password', function () {
-        return view('default.auth.reset-password');
-    })->name('reset-password.view');
+    Route::get('/reset-password', [ResetPassword::class, 'show'])->name('reset-password.view');
+    Route::post('/reset-password', [ResetPassword::class, 'resetPassword'])->name('reset-password');
 
 });
 
