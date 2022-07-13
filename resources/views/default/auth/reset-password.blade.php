@@ -9,18 +9,18 @@
                         <div class="brand-logo">
                             <img src="assets/images/logo.svg">
                         </div>
-                        <h4>Hello! let's get started</h4>
-                        <h6 class="font-weight-light">Sign in to continue.</h6>
+                        <h4>Let's reset your password</h4>
+                        <h6 class="font-weight-light">Input new password</h6>
                         @if($errors->any())
                             <h6 class="text-danger">{{$errors->first()}}</h6>
                         @endif
                         <form class="pt-3" method="POST" action="{{route('login')}}">
                             @csrf
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control form-control-lg" value="{{old('email')}}" id="exampleInputEmail1" placeholder="Email">
+                                <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                                <input type="password" name="password_confirmation" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Confirm password">
                             </div>
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
@@ -30,7 +30,7 @@
                                     <label class="form-check-label text-muted">
                                         <input name="remember" type="checkbox" class="form-check-input"> Keep me signed in </label>
                                 </div>
-                                <a href="{{route('forgot-password.view')}}" class="auth-link text-black">Forgot password?</a>
+                                <a href="{{route('forgot-password.view')}}" class="auth-link text-black">OK</a>
                             </div>
 {{--                            <div class="mb-2">--}}
 {{--                                <button type="button" class="btn btn-block btn-facebook auth-form-btn">--}}
