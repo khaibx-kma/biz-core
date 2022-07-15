@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController as Login;
 use App\Http\Controllers\Auth\ForgotPasswordController as ForgotPassword;
 use App\Http\Controllers\Auth\ResetPasswordController as ResetPassword;
+use App\Http\Controllers\TestController as Test;
+use App\Http\Controllers\CloneDataBeshopController as CloneBS;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,5 +43,8 @@ Route::middleware('auth')->group(function (){
     Route::get('/', function (){
         return view('default.dashboard.index');
     })->name('dashboard.view');
+
+    Route::get('/test', [Test::class, 'test'])->name('test');
+    Route::get('/clone-bs/test', [CloneBS::class, 'test'])->name('clone-bs.test');
 });
 
