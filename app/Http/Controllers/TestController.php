@@ -19,8 +19,16 @@ class TestController extends Controller
 //
 //        dd(2,$passwords, $passwords2);
 
-        $products = DB::connection('mysql_beshop')->table('product_4_web')->limit(5)->get();
-        dd($products);
+//        $products = DB::connection('mysql_beshop')->table('product_4_web')
+//            ->orderBy('id', 'DESC')
+//            ->offset(2)
+//            ->limit(5)
+//            ->chunk(2, function ($products){
+//                $products = $products->toArray();
+//                array_map(function ($prduct), $products)
+//                dd(123,$products->toArray());
+//            });
+//        dd($products);
         return 'controller for test code';
     }
 }
