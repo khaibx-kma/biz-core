@@ -13,7 +13,7 @@ class CloneBeshopProduct extends Command
      *
      * @var string
      */
-    protected $signature = 'product:clone_beshop {limit=100} {offset=0}';
+    protected $signature = 'product:clone_beshop {limit=100} {offset=0} {chunk=10}';
 
     /**
      * The console command description.
@@ -31,15 +31,16 @@ class CloneBeshopProduct extends Command
     {
         $limit = $this->argument('limit');
         $offset = $this->argument('offset');
+        $chunkAmount = $this->argument('chunk');
         $products = DB::connection('mysql_beshop')->table('product_4_web')
             ->orderBy('id', 'DESC')
             ->offset($offset)
             ->limit($limit)
             ->get()->toArray();
 
-        foreach (array_chunk($products, 10) as $index => $chunk){
+        foreach (array_chunk($products, $chunkAmount) as $index => $chunk){
             print ("Dispatch $index \n");
-            CreateProductFromBeshop::dispatch($chunk)->onQueue('queue_create_product_from_beshop');
+            CreateProductFromBeshop::dispatch($chunk)->onQueue('create_product_from_beshop');
         }
 
         print ('Clone success !');

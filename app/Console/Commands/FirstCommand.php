@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\FirstJob;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class FirstCommand extends Command
 {
@@ -12,7 +13,7 @@ class FirstCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'first:command {text?}';
+    protected $signature = 'first:command {text=!!!}';
 
     /**
      * The console command description.
@@ -31,9 +32,11 @@ class FirstCommand extends Command
         $text = $this->argument('text');
         print('running first command....'.$text);
 
-        $arrText = ['Queue', 'name---', '!!!'];
+        $arrText = ['Queue', 'name---', $text];
 //        dispatch(new FirstJob($arrText));
 //        FirstJob::dispatch($arrText)->delay(3);
-        FirstJob::dispatch($arrText)->onQueue('queue_for_first_job');
+//        FirstJob::dispatch($arrText)->onQueue('queue_for_first_job');
+        Log::info('running first command....');
+        Log::info(json_encode($arrText));
     }
 }
