@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductExport;
 use App\Models\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TestController extends Controller
 {
@@ -29,6 +31,25 @@ class TestController extends Controller
 //                dd(123,$products->toArray());
 //            });
 //        dd($products);
-        return 'controller for test code';
+//        return 'controller for test code';
+
+        // export + download
+        $data = [['a' =>'abc','b' => 'xyz']];
+//        return Excel::download(new ProductExport($data, ['col11', 'col22']),'product.csv');
+        Excel::store(new ProductExport($data, ['col11', 'col22']),'public/product2.csv');
+
+        $zipName = storage_path('myArchive.zip');
+        if(file_exists($zipName)){
+            unlink($zipName);
+        }
+        $zip = new ZipArchive;
+
+        if($zip->open($zipName, ZipArchive::CREATE) === true){
+//            $files = File::files(storage_path());
+            $zip->addFile(storage_path('app/public/product.csv'), 'product.csv');
+            $zip->addFile(storage_path('app/public/product2.csv'), 'product23.csv');
+            $zip->close();
+        }
+        return response()->download($zipName);
     }
 }
